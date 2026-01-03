@@ -1,9 +1,6 @@
 name: CI - Pipeline Informatif
 
-on:
-  push:
-    branches:
-      - ci
+on: pull_request
 
 jobs:
   integration-continue:
