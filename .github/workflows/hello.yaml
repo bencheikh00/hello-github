@@ -5,16 +5,20 @@ on:
     branches:
       - lab-1
 
+
 jobs:
   integration-continue:
     name: Démonstration CI
     runs-on: ubuntu-latest
 
+    env:
+      STEP1: "Le code vient d’être poussé sur GitHub"
+
     steps:
       - name: Étape 1 - Initialisation
         run: |
           echo "Démarrage du pipeline d’intégration continue"
-          echo "Le code vient d’être poussé sur GitHub"
+          echo "$STEP1"
 
       - name: Étape 2 - Récupération du code
         run: |
