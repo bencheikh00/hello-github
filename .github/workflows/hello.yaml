@@ -18,7 +18,7 @@ jobs:
       - name: Étape 1 - Initialisation
         run: |
           echo "Démarrage du pipeline d’intégration continue"
-          echo "$STEP1"
+          echo "STEP1= $STEP1"
 
       - name: Étape 2 - Récupération du code
         run: |
