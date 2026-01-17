@@ -23,7 +23,7 @@ jobs:
       - name: Étape 2 - Récupération du code
         run: |
           echo "Récupération du code source"
-          echo "Le dépôt est prêt pour le traitement"
+          echo "STEP2= ${{ STEP2 }}"
 
       - name: Étape 3 - Build
         run: |
