@@ -12,10 +12,13 @@ on:
 
 jobs:
   build-push-run:
+    # Runner GitHub Hosted
     runs-on: ubuntu-latest
+    timetimeout-minutes: 15
     #runs-on: self-hosted
     # Runs on my Mac Book
     #runs-on: lab-isi
+    
 
 #    env:
 #      IMAGE_NAME: ci-html-demo
@@ -62,6 +65,4 @@ jobs:
 
       - name: Run du container
         run: |
-          tags: moisawade/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-          tags: moisawade/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           docker run -d -p 80:8080 moisawade/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
