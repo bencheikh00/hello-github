@@ -12,7 +12,8 @@ on:
 
 jobs:
   build-push-run:
-    runs-on: ubuntu-latest
+    #runs-on: ubuntu-latest
+    runs-on: self-hosted
     # Runs on my Mac Book
     #runs-on: lab-isi
 
