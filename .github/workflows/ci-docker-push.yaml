@@ -9,8 +9,6 @@ jobs:
   docker:
     runs-on: ubuntu-latest
 
-    #environment: dev
-
     env:
       IMAGE_NAME: ci-html-demo
       IMAGE_TAG: latest
@@ -22,8 +20,9 @@ jobs:
       
       - name: Test Varibales
         run: |
-          echo "Varibale IMAGE_NAME $IMAGE_NAME"
-          echo "Varibale DOCKER_REGISTRY  $DOCKER_REGISTRY "
+          echo Varibale IMAGE_NAME $IMAGE_NAME
+          echo Varibale DOCKER_REGISTRY  $DOCKER_REGISTRY 
+          echo DOCKER_HUB_REGISTRY= {{ vars.DOCKER_HUB_REGISTRY}}
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
