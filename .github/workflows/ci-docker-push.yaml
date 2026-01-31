@@ -14,7 +14,6 @@ jobs:
   build-push-run:
     # Runner GitHub Hosted
     runs-on: ubuntu-latest
-    timetimeout: 15
     #runs-on: self-hosted
     # Runs on my Mac Book
     #runs-on: lab-isi
