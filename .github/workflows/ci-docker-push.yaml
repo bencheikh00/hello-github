@@ -11,7 +11,7 @@ on:
       - lab-deploy
 
 jobs:
-  docker:
+  build-push-run:
     runs-on: ubuntu-latest
     # Runs on my Mac Book
     #runs-on: lab-isi
@@ -41,7 +41,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          tags: moisawade/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
 #      - name: Connexion à Docker Hub
 #        run: |
@@ -61,4 +61,6 @@ jobs:
 
       - name: Run du container
         run: |
-          docker run -d -p 80:8080 ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          tags: moisawade/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          tags: moisawade/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          docker run -d -p 80:8080 moisawade/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
