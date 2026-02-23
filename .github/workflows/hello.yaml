@@ -28,7 +28,7 @@ jobs:
       - name: Étape 3 - Build
         run: |
           echo "Phase de build"
-          echo "Compilation ou construction de l’application"
+          echo  "${{ secrets.MY_SECRET }}"
 
       - name: Étape 4 - Tests
         run: |
