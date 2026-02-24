@@ -1,0 +1,279 @@
+# ============================================================================
+# GitHub Actions Variables Reference Guide
+# ============================================================================
+# This file serves as a documentation and reference guide for all variable
+# types that can be used in GitHub Actions workflows.
+#
+# NOTE: This is a REFERENCE FILE. Repository variables and secrets must be
+#       configured in GitHub UI or via GitHub CLI, not in YAML files.
+# ============================================================================
+
+# ============================================================================
+# 1. WORKFLOW VARIABLES (env)
+# ============================================================================
+# Location: Defined in workflow files at workflow or job level
+# Scope: Job or step level
+# Syntax: $VARIABLE_NAME or ${{ env.VARIABLE_NAME }}
+# When to use: Non-sensitive, workflow-specific configuration
+#
+# Example usage in hello.yaml:
+#   env:
+#     LOG_LEVEL: "INFO"
+#     CI_ENVIRONMENT: "development"
+#     JOB_TIMEOUT: "3600"
+
+workflow_variables:
+  description: "Variables defined directly in workflow files"
+  examples:
+    - name: LOG_LEVEL
+      value: "INFO"
+      use_case: "Logging level for the pipeline"
+    - name: CI_ENVIRONMENT
+      value: "development"
+      use_case: "Environment identifier (dev, staging, prod)"
+    - name: JOB_TIMEOUT
+      value: "3600"
+      use_case: "Job timeout in seconds"
+    - name: BUILD_TYPE
+      value: "release"
+      use_case: "Type of build to perform"
+    - name: ARTIFACT_PATH
+      value: "./dist"
+      use_case: "Path to build artifacts"
+
+# ============================================================================
+# 2. REPOSITORY VARIABLES
+# ============================================================================
+# Location: GitHub UI > Settings > Secrets and variables > Variables
+# Scope: Organization or Repository level
+# Syntax: ${{ vars.VARIABLE_NAME }}
+# When to use: Shared configuration across multiple workflows
+# Max size: 48 KB per variable
+#
+# Setup Instructions:
+#   1. Go to your repository settings
+#   2. Navigate to "Secrets and variables" > "Variables"
+#   3. Click "New repository variable"
+#   4. Add the variable name and value
+#
+# Example usage in hello.yaml:
+#   run: |
+#     echo "Registry: ${{ vars.DOCKER_REGISTRY }}"
+
+repository_variables:
+  description: "Shared variables stored in repository settings"
+  setup_location: "Settings > Secrets and variables > Variables"
+  examples:
+    - name: DOCKER_REGISTRY
+      example_value: "ghcr.io/myusername"
+      use_case: "Container registry URL"
+    - name: API_ENDPOINT
+      example_value: "https://api.example.com"
+      use_case: "API endpoint for the application"
+    - name: APP_VERSION
+      example_value: "1.2.3"
+      use_case: "Application version number"
+    - name: NODE_VERSION
+      example_value: "18.0.0"
+      use_case: "Node.js version for build"
+    - name: PYTHON_VERSION
+      example_value: "3.11"
+      use_case: "Python version for build"
+    - name: DATABASE_HOST
+      example_value: "db.example.com"
+      use_case: "Database host (non-sensitive)"
+    - name: SLACK_WEBHOOK_URL
+      example_value: "https://hooks.slack.com/services/..."
+      use_case: "Slack webhook for notifications"
+    - name: NOTIFICATION_EMAIL
+      example_value: "devops@example.com"
+      use_case: "Email for notifications"
+
+# ============================================================================
+# 3. SECRETS
+# ============================================================================
+# Location: GitHub UI > Settings > Secrets and variables > Secrets
+# Scope: Organization or Repository level
+# Syntax: ${{ secrets.SECRET_NAME }}
+# When to use: Passwords, API keys, tokens, credentials, private data
+# Security: Automatically masked in logs, never exposed in workflow display
+# Max size: 48 KB per secret
+#
+# Setup Instructions:
+#   1. Go to your repository settings
+#   2. Navigate to "Secrets and variables" > "Secrets"
+#   3. Click "New repository secret"
+#   4. Add the secret name and value
+#
+# IMPORTANT: Never hardcode secrets in workflows!
+#
+# Example usage in hello.yaml:
+#   run: echo "${{ secrets.DB_PASSWORD }}"
+
+secrets:
+  description: "Sensitive data stored securely and masked in logs"
+  setup_location: "Settings > Secrets and variables > Secrets"
+  warning: "🔐 CRITICAL: Never hardcode secrets in workflows!"
+  examples:
+    - name: MY_SECRET
+      type: "Generic secret"
+      use_case: "Demo/testing purposes"
+    - name: DB_PASSWORD
+      type: "Database credential"
+      use_case: "Database root password"
+    - name: DB_USERNAME
+      type: "Database credential"
+      use_case: "Database username"
+    - name: API_TOKEN
+      type: "API authentication"
+      use_case: "Third-party API token"
+    - name: DOCKER_USERNAME
+      type: "Container registry"
+      use_case: "Docker Hub username"
+    - name: DOCKER_PASSWORD
+      type: "Container registry"
+      use_case: "Docker Hub personal access token"
+    - name: GITHUB_TOKEN
+      type: "GitHub authentication"
+      use_case: "GitHub API access (auto-generated)"
+    - name: DEPLOY_KEY
+      type: "SSH key"
+      use_case: "Private key for deployments"
+    - name: GPG_KEY
+      type: "Signing key"
+      use_case: "GPG key for signing commits"
+    - name: NPM_TOKEN
+      type: "npm authentication"
+      use_case: "npm registry authentication"
+    - name: SLACK_WEBHOOK_SECRET
+      type: "Slack API"
+      use_case: "Slack webhook URL (sensitive)"
+    - name: AWS_ACCESS_KEY
+      type: "AWS credentials"
+      use_case: "AWS access key ID"
+    - name: AWS_SECRET_KEY
+      type: "AWS credentials"
+      use_case: "AWS secret access key"
+
+# ============================================================================
+# 4. CONTEXT VARIABLES (Built-in)
+# ============================================================================
+# Location: Built-in GitHub Actions context
+# Scope: Available in all workflows automatically
+# Syntax: ${{ github.PROPERTY }}
+# When to use: Dynamic workflow information, no setup needed
+#
+# Common context variables:
+#   ${{ github.repository }}      - Owner/repo (e.g., username/repo-name)
+#   ${{ github.repository_owner }} - Repository owner username
+#   ${{ github.ref }}              - Full ref path (refs/heads/main)
+#   ${{ github.ref_name }}         - Branch or tag name
+#   ${{ github.sha }}              - Full commit SHA
+#   ${{ github.actor }}            - GitHub username who triggered the workflow
+#   ${{ github.action }}           - ID of the action
+#   ${{ github.workspace }}        - Working directory
+#   ${{ github.run_id }}           - Unique run ID
+#   ${{ github.run_number }}       - Sequential run number
+#   ${{ github.workflow }}         - Workflow name
+#   ${{ github.event_name }}       - Trigger event (push, pull_request, etc.)
+
+context_variables:
+  description: "Built-in variables providing workflow context"
+  setup_required: false
+  examples:
+    - name: github.repository
+      example_value: "octocat/Hello-World"
+      use_case: "Full repository identifier"
+    - name: github.repository_owner
+      example_value: "octocat"
+      use_case: "Repository owner username"
+    - name: github.ref_name
+      example_value: "feature-branch or v1.0.0"
+      use_case: "Branch or tag name"
+    - name: github.sha
+      example_value: "e7e82f78a2e6b3e1a2b4c5d6e7f8g9h0"
+      use_case: "Current commit SHA for versioning"
+    - name: github.actor
+      example_value: "mwade028166"
+      use_case: "Username who triggered the workflow"
+    - name: github.workspace
+      example_value: "/home/runner/work/repo/repo"
+      use_case: "Working directory path"
+    - name: github.run_id
+      example_value: "1234567890"
+      use_case: "Unique identifier for this run"
+    - name: github.run_number
+      example_value: "42"
+      use_case: "Sequential run number"
+    - name: github.event_name
+      example_value: "push"
+      use_case: "Workflow trigger event type"
+
+# ============================================================================
+# 5. VARIABLE PRECEDENCE (Priority order, 1=highest)
+# ============================================================================
+# When the same variable name is defined at multiple levels,
+# this is the order of precedence:
+
+precedence:
+  1: "Step-level env: (highest priority)"
+  2: "Job-level env:"
+  3: "Workflow-level env:"
+  4: "Repository variables (${{ vars.* }})"
+  5: "Secrets (${{ secrets.* }})"
+  6: "Context variables (${{ github.* }}) (lowest priority)"
+
+# ============================================================================
+# 6. QUICK COMPARISON TABLE
+# ============================================================================
+
+comparison_table:
+  headers: ["Type", "Defined Where", "Syntax", "Scope", "Use Case"]
+  rows:
+    - ["Workflow Variables", "In .yaml file", "$VAR or ${{ env.VAR }}", "Workflow/Job/Step", "Non-sensitive config"]
+    - ["Repository Variables", "GitHub Settings", "${{ vars.VAR }}", "Repo/Org", "Shared config"]
+    - ["Secrets", "GitHub Settings", "${{ secrets.VAR }}", "Repo/Org", "Sensitive data"]
+    - ["Context Variables", "Built-in", "${{ github.* }}", "All workflows", "Dynamic info"]
+
+# ============================================================================
+# 7. EXAMPLES BY USE CASE
+# ============================================================================
+
+use_case_examples:
+  continuous_deployment:
+    variables:
+      - name: "vars.DOCKER_REGISTRY"
+        value: "ghcr.io/yourorg"
+      - name: "vars.K8S_CLUSTER"
+        value: "production-cluster"
+      - name: "secrets.DOCKER_PASSWORD"
+        value: "[ENCRYPTED]"
+      - name: "secrets.K8S_CONFIG"
+        value: "[ENCRYPTED]"
+
+  testing_and_quality:
+    variables:
+      - name: "env.TEST_TIMEOUT"
+        value: "300"
+      - name: "vars.COVERAGE_THRESHOLD"
+        value: "80"
+      - name: "secrets.SONARQUBE_TOKEN"
+        value: "[ENCRYPTED]"
+
+  notifications:
+    variables:
+      - name: "vars.SLACK_CHANNEL"
+        value: "#deployments"
+      - name: "vars.NOTIFICATION_EMAIL"
+        value: "team@example.com"
+      - name: "secrets.SLACK_WEBHOOK"
+        value: "[ENCRYPTED]"
+
+  database_operations:
+    variables:
+      - name: "vars.DATABASE_HOST"
+        value: "db.example.com"
+      - name: "secrets.DATABASE_USER"
+        value: "[ENCRYPTED]"
+      - name: "secrets.DATABASE_PASSWORD"
+        value: "[ENCRYPTED]"

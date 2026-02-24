@@ -11,10 +11,18 @@ jobs:
     name: Démonstration CI
     runs-on: ubuntu-latest
 
+    # Définition des variables d’environnement pour les étapes du pipeline
     env:
-      STEP1: "Le code vient d’être poussé sur GitHub"
+      STEP1: "Workflow - Initialisation"
+      STEP2: "Workflow - Récupération du code"
+      STEP3: "Workflow - Build"
+      STEP4: "Workflow - Tests"
+      STEP5: "Workflow - Packaging"
+      STEP6: "Workflow - Fin du pipeline"
+
 
     steps:
+     # using variables d’environnement et secrets pour les étapes du pipeline
       - name: Étape 1 - Initialisation
         run: |
           echo "Démarrage du pipeline d’intégration continue"
@@ -34,13 +42,14 @@ jobs:
         run: |
           echo "Phase de tests"
           echo "Exécution des tests unitaires"
-          echo "Vérification de la qualité du code"
+          echo "${{ vars.STEP4 }}"
 
       - name: Étape 5 - Packaging
         run: |
           echo "Phase de packaging"
-          echo "Création d’un artefact ou d’une image Docker"
+          echo "${{ vars.STEP5 }}"
 
       - name: Étape 6 - Fin du pipeline
         run: |
           echo "Le pipeline CI s’est exécuté avec succès"
+          echo "${{ vars.STEP6 }}"
