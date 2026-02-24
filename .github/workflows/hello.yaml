@@ -36,20 +36,20 @@ jobs:
       - name: Étape 3 - Build
         run: |
           echo "Phase de build"
-          echo  "${{ secrets.MY_SECRET }}"
+          echo  "STEP3= ${{ secrets.MY_SECRET }}"
 
       - name: Étape 4 - Tests
         run: |
           echo "Phase de tests"
           echo "Exécution des tests unitaires"
-          echo "${{ vars.STEP4 }}"
+          echo "STEP4= ${{ vars.STEP4 }}"
 
       - name: Étape 5 - Packaging
         run: |
           echo "Phase de packaging"
-          echo "${{ vars.STEP5 }}"
+          echo "STEP5= ${{ vars.STEP5 }}"
 
       - name: Étape 6 - Fin du pipeline
         run: |
           echo "Le pipeline CI s’est exécuté avec succès"
-          echo "${{ vars.STEP6 }}"
+          echo "STEP6= ${{ vars.STEP6 }}"
