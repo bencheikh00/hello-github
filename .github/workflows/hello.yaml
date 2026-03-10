@@ -8,7 +8,7 @@ on:
 
 jobs:
   integration-continue:
-    name: Démonstration CI
+    name: Gestion des variables d’environnement et secrets
     runs-on: ubuntu-latest
 
     # Définition des variables d’environnement pour les étapes du pipeline
