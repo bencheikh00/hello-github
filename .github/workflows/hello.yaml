@@ -3,7 +3,7 @@ name: CI - Pipeline Informatif
 on:
   push:
     branches:
-      - lab-1
+      - variables
 
 
 jobs:
@@ -14,42 +14,13 @@ jobs:
     # Définition des variables d’environnement pour les étapes du pipeline
     env:
       STEP1: "Workflow - Initialisation"
-      STEP2: "Workflow - Récupération du code"
-      STEP3: "Workflow - Build"
-      STEP4: "Workflow - Tests"
-      STEP5: "Workflow - Packaging"
-      STEP6: "Workflow - Fin du pipeline"
+    
 
 
     steps:
      # using variables d’environnement et secrets pour les étapes du pipeline
-      - name: Étape 1 - Initialisation
+      - name: Étape 1 - Variable workflow
         run: |
           echo "Démarrage du pipeline d’intégration continue"
           echo "STEP1= $STEP1"
 
-      - name: Étape 2 - Récupération du code
-        run: |
-          echo "Récupération du code source"
-          echo "STEP2= ${{ vars.STEP2 }}"
-
-      - name: Étape 3 - Build
-        run: |
-          echo "Phase de build"
-          echo  "STEP3= ${{ secrets.MY_SECRET }}"
-
-      - name: Étape 4 - Tests
-        run: |
-          echo "Phase de tests"
-          echo "Exécution des tests unitaires"
-          echo "STEP4= ${{ vars.STEP4 }}"
-
-      - name: Étape 5 - Packaging
-        run: |
-          echo "Phase de packaging"
-          echo "STEP5= ${{ vars.STEP5 }}"
-
-      - name: Étape 6 - Fin du pipeline
-        run: |
-          echo "Le pipeline CI s’est exécuté avec succès"
-          echo "STEP6= ${{ vars.STEP6 }}"
