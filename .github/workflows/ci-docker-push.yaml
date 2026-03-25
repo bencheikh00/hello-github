@@ -42,7 +42,8 @@ jobs:
       - name: Push de l’image Docker
         run: |
           docker push $DOCKER_REGISTRY/$IMAGE_NAME:$IMAGE_TAG
-          
+
+        ## Trivy Vulnerability Scanner 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
