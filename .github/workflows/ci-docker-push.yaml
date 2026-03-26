@@ -50,10 +50,20 @@ jobs:
           image-ref: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           format: table
           scanners: 'vuln,secret,config' 
+          template: '@/contrib/html.tpl'  # Utilise le template HTML intégré à Trivy
+          output: 'trivy-report.html'
           #severity: CRITICAL,HIGH, MEDIUM
           #exit-code: 1
           vuln-type: os,library
           #ignore-unfixed: true
+
+      # Upload the Trivy HTML report as an artifact
+      - name: Upload Trivy HTML Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-security-report
+          path: trivy-report.html
+          retention-days: 14  # Conserve le rapport pendant 2 semaines
 
   test-runner:
     needs: docker
