@@ -51,7 +51,7 @@ jobs:
           format: table
           #severity: CRITICAL,HIGH, MEDIUM
           #exit-code: 1
-          vuln-type: os,library
+          vuln-type: os,secret,library
           #ignore-unfixed: true
 
   test-runner:
