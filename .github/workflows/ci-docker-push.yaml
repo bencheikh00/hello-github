@@ -49,9 +49,10 @@ jobs:
         with:
           image-ref: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           format: table
+          scanners: 'vuln,secret,config' 
           #severity: CRITICAL,HIGH, MEDIUM
           #exit-code: 1
-          vuln-type: os,secret,library
+          vuln-type: os,library
           #ignore-unfixed: true
 
   test-runner:
