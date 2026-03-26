@@ -55,6 +55,7 @@ jobs:
           #ignore-unfixed: true
 
   test-runner:
+    needs: docker
     runs-on: runner-isi
     steps:
       - name: Print hostname

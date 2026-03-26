@@ -1,4 +1,4 @@
 #FROM nginx:alpine
-FROM nginx:stable-alpine3.23-slim
+FROM nginx:stable-alpine
 COPY app /usr/share/nginx/html
 EXPOSE 80
