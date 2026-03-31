@@ -57,7 +57,7 @@ jobs:
           vuln-type: os,library
           #ignore-unfixed: true
 
-      # Upload the Trivy HTML report as an artifact
+      ## Upload the Trivy HTML report as an artifact
       # - name: Upload Trivy HTML Report
       #   uses: actions/upload-artifact@v4
       #   with:
