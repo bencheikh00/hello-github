@@ -14,7 +14,7 @@ jobs:
     env:
       IMAGE_NAME: ci-html-demo
       IMAGE_TAG: latest
-      DOCKER_REGISTRY: moisawade
+      DOCKER_REGISTRY: bencheikh2006
 
     steps:
       - name: Récupération du code
